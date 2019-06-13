@@ -8,7 +8,6 @@ public class Cliente {
     private int saldo;
     private long numeroDeCuenta;
     private CuentaBancaria tipoDeCuenta;
-    private int tasaDeInteresPrestamo;
     
     public Cliente(String nombre, String documento, int clave, int saldo, long numeroDeCuenta) {
         this.nombre = nombre;
