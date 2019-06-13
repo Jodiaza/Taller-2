@@ -1,20 +1,18 @@
 package datos;
 
-public class Cliente {
+public class Cliente{
     
     private String nombre;
     private String documento;
     private int clave;
-    private int saldo;
-    private long numeroDeCuenta;
-    private CuentaBancaria tipoDeCuenta;
+    private Cuenta cuenta; 
     
     public Cliente(String nombre, String documento, int clave, int saldo, long numeroDeCuenta) {
         this.nombre = nombre;
         this.documento = documento;
         this.clave = clave;
         this.saldo = saldo;
-        this.numeroDeCuenta = numeroDeCuenta;
+        this.numeroDeCue = numeroDeCuenta;
     }
 
     public String getNombre() {
