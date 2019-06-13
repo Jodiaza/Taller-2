@@ -3,14 +3,14 @@ package datos;
 public class Cliente {
     
     private String nombre;
-    private Long documento;
+    private String documento;
     private int clave;
     private int saldo;
-    private int numeroDeCuenta;
+    private long numeroDeCuenta;
     private CuentaBancaria tipoDeCuenta;
     private int tasaDeInteresPrestamo;
     
-    public Cliente(String nombre, Long documento, int clave, int saldo, int numeroDeCuenta) {
+    public Cliente(String nombre, String documento, int clave, int saldo, long numeroDeCuenta) {
         this.nombre = nombre;
         this.documento = documento;
         this.clave = clave;
@@ -30,11 +30,11 @@ public class Cliente {
         return saldo;
     }
 
-    public Long getDocumento() {
+    public String getDocumento() {
         return documento;
     }
     
-    public int getNumeroDeCuenta(){
+    public long getNumeroDeCuenta(){
         return numeroDeCuenta;
     }
 
@@ -50,11 +50,11 @@ public class Cliente {
         this.saldo = saldo;
     }
 
-    public void setDocumento(Long documento) {
+    public void setDocumento(String documento) {
         this.documento = documento;
     }
     
-    public void setNumeroDeCuenta(int numeroDeCuenta){
+    public void setNumeroDeCuenta(long numeroDeCuenta){
         this.numeroDeCuenta = numeroDeCuenta;
     }  
     
