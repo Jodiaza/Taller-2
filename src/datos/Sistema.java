@@ -22,7 +22,7 @@ public class Sistema {
         listaClientes.put(documento, nuevoCliente);
     }
     
-    public void consultarCliente(string documento, HashMap<String, Cliente> listaClientes) {
+    public void consultarCliente(String documento, HashMap<String, Cliente> listaClientes) {
        if(listaClientes.containsKey(documento)) {
            Cliente clienteConsultado = listaClientes.get(documento);
            System.out.println("Nombre:" + clienteConsultado.getNombre());
@@ -35,7 +35,7 @@ public class Sistema {
         }
     }
     
-    public void modificarCliente(string documento, HashMap<String, Cliente> listaClientes) {
+    public void modificarCliente(String documento, HashMap<String, Cliente> listaClientes) {
         Scanner sc = new Scanner(System.in);
         if(listaClientes.containsKey(documento)) {
             Cliente clienteModificado = listaClientes.get(documento);
@@ -47,7 +47,7 @@ public class Sistema {
             System.out.println("Introduzca la clave del cliente:");
             clienteModificado.setClave(sc.nextInt());
             System.out.println("Introduzca el número de cuenta del cliente:");
-            clienteModificado.setNumerodeCuenta(sc.nextLong());
+            clienteModificado.setNumeroDeCuenta(sc.nextLong());
             //Modificar tipo de cuenta
         } else {
             System.out.println("No hay ningun cliente con ese documento.");  
