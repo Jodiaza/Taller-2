@@ -1,14 +1,32 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package datos;
 
-/**
- *
- * @author kedua
- */
-public class Cuenta {
-    
+public abstract class Cuenta {
+
+    private int saldo;
+    private String numeroDeCuenta;
+    private String tipoDeCuenta;
+
+    public int getSaldo() {
+        return saldo;
+    }
+
+    public void setSaldo(int saldo) {
+        this.saldo = saldo;
+    }
+
+    public String getNumeroDeCuenta() {
+        return numeroDeCuenta;
+    }
+
+    public void setNumeroDeCuenta(String numeroDeCuenta) {
+        this.numeroDeCuenta = numeroDeCuenta;
+    }
+
+    public String getTipoDeCuenta() {
+        return tipoDeCuenta;
+    }
+
+    public void setTipoDeCuenta(String tipoDeCuenta) {
+        this.tipoDeCuenta = tipoDeCuenta;
+    }  
 }

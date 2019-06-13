@@ -18,9 +18,43 @@ public class Sistema {
         System.out.println("Introduzca el número de cuenta del cliente:");
         long numeroDeCuenta = sc.nextLong();
         //Agregar tipo de cuenta
-        Cliente nuevoCliente = new Cliente(nombre, documento, clave, saldo, numeroDeCuenta);
+        Cliente nuevoCliente = new Cliente(nombre, documento, clave, cuenta);
         listaClientes.put(documento, nuevoCliente);
     }
+    
+    public String introducirCliente(){
+        Scanner sc = new Scanner(System.in);
+        System.out.println("Introduzca el nombre del cliente:");
+        String nombre = sc.nextLine();
+        return nombre;
+    }
+    
+    public String introducirDocumento(){
+        Scanner sc = new Scanner(System.in);
+        System.out.println("Introduzca el documento del cliente:");
+        String documento = sc.nextLine();
+        if(documento.length()>=7&&documento.length()<=10){
+            return documento;
+        }else{
+            return introducirDocumento();
+        }
+    }
+    
+    public String introducirClave(){
+        Scanner sc = new Scanner(System.in);
+        System.out.println("Introduzca la clave del cliente:");
+        String clave = sc.nextLine();
+        if(clave.length()==4){
+            return clave;
+        }else{
+            return introducirClave();
+        }
+    }
+    
+    /*public Cuenta introducirCuenta(){
+        Scanner sc = new Scanner(System.in);
+        System.out.println("Introduzca la clave del cliente:");
+    }*/
     
     public void consultarCliente(String documento, HashMap<String, Cliente> listaClientes) {
        if(listaClientes.containsKey(documento)) {

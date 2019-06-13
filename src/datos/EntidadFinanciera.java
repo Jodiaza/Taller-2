@@ -2,12 +2,10 @@ package datos;
 
 public interface EntidadFinanciera{
     
-    public void manejarDinero() {
-        
-    }
+    public void consignar(int valor);   
     
-    public void modificarSaldo() {
-        
-    }
+    public void retirar(int valor);
+    
+    public int consultarSaldo();
     
 }

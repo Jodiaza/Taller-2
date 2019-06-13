@@ -1,14 +1,23 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package datos;
 
-/**
- *
- * @author kedua
- */
-public class Ahorro {
+public class Ahorro extends Cuenta {
+    
+    private static int cobroRetiro=3000; 
+
+    public static int getCobroRetiro() {
+        return cobroRetiro;
+    }
+
+    public static void setCobroRetiro(int cobroRetiro) {
+        Ahorro.cobroRetiro = cobroRetiro;
+    }
+
+    public Ahorro(int saldo, String numeroDeCuenta, String tipoDeCuenta) {
+        setSaldo(saldo);
+        setNumeroDeCuenta(numeroDeCuenta);
+        setTipoDeCuenta(tipoDeCuenta);
+    }
+    
+    
     
 }
