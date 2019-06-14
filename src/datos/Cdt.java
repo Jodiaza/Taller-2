@@ -11,11 +11,13 @@ public class Cdt extends Cuenta{
     public static void setInteres(int interes) {
         Cdt.interes = interes;
     }
-    
-    public Cdt(int saldo, String numeroDeCuenta, String tipoDeCuenta) {
+
+    public Cdt(int saldo, String numeroDeCuenta, int interes) {
+        super();
         setSaldo(saldo);
         setNumeroDeCuenta(numeroDeCuenta);
-        setTipoDeCuenta(tipoDeCuenta);
+        setInteres(interes);
     }
+
     
 }

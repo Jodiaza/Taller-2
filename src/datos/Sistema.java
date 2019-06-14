@@ -15,7 +15,8 @@ public class Sistema {
         System.out.println("Introduzca la clave del cliente:");
         int clave = sc.nextInt();
         System.out.println("Introduzca el número de cuenta del cliente:");
-        Cuenta cuenta = sc.nextCuenta();
+        String num_cuenta = sc.next();
+        Cuenta cuenta = new Cdt(0, num_cuenta,3);
         //Agregar tipo de cuenta
         Cliente nuevoCliente = new Cliente(nombre, documento, clave, cuenta);
         listaClientes.put(documento, nuevoCliente);
@@ -60,8 +61,8 @@ public class Sistema {
            Cliente clienteConsultado = listaClientes.get(documento);
            System.out.println("Nombre:" + clienteConsultado.getNombre());
            System.out.println("Documento:" + clienteConsultado.getDocumento());
-           System.out.println("Número de cuenta:" + clienteConsultado.getNumeroDeCuenta());
-           System.out.println("Saldo:" + clienteConsultado.getSaldo());
+           System.out.println("Número de cuenta:" + clienteConsultado.getCuenta().getNumeroDeCuenta());
+           System.out.println("Saldo:" + clienteConsultado.getCuenta().getSaldo());
            //Consultar tipo de cuenta
         } else {
             System.out.println("No hay ningun cliente con ese documento.");  
@@ -80,11 +81,16 @@ public class Sistema {
             System.out.println("Introduzca la clave del cliente:");
             clienteModificado.setClave(sc.nextInt());
             System.out.println("Introduzca el número de cuenta del cliente:");
-            clienteModificado.setNumeroDeCuenta(sc.nextLong());
+            clienteModificado.getCuenta().setNumeroDeCuenta(sc.next());
             //Modificar tipo de cuenta
+            
+            /*Esto lo usa ara mod saldo
+            clienteModificado.getCuenta().setSaldo(nuevo valor);*/
         } else {
             System.out.println("No hay ningun cliente con ese documento.");  
+            
         }
+        
     }
     
     public void eliminarCLiente(String documento, HashMap<String, Cliente> listaClientes) {
@@ -97,5 +103,6 @@ public class Sistema {
     
     //Pendiente
     public void modificarSaldo() {
+        
     }
 }
