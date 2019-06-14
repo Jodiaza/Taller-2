@@ -1,5 +1,6 @@
 package datos;
 import java.util.*;
+import datos.Cuenta;
 
 public class Sistema {
     
@@ -13,10 +14,8 @@ public class Sistema {
         String documento = sc.nextLine();
         System.out.println("Introduzca la clave del cliente:");
         int clave = sc.nextInt();
-        System.out.println("Introduzca el saldo del cliente:");
-        int saldo = sc.nextInt();
         System.out.println("Introduzca el número de cuenta del cliente:");
-        long numeroDeCuenta = sc.nextLong();
+        Cuenta cuenta = sc.nextCuenta();
         //Agregar tipo de cuenta
         Cliente nuevoCliente = new Cliente(nombre, documento, clave, cuenta);
         listaClientes.put(documento, nuevoCliente);
