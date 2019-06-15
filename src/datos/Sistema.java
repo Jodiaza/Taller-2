@@ -36,7 +36,12 @@ public class Sistema {
         Scanner sc = new Scanner(System.in);
         System.out.println("Introduzca el nombre del cliente:");
         String nombre = sc.nextLine();
-        return nombre;
+        if(nombre.length()!=0) {
+        	return nombre;
+        }else {
+        	System.out.println("Nombre vacío. Vuelva a intentar.");
+        	return introducirCliente();
+        }
     }
     
     public String introducirDocumento(){
@@ -53,12 +58,13 @@ public class Sistema {
     
     public String introducirClave(){
         Scanner sc = new Scanner(System.in);
-        System.out.println("Introduzca la clave del cliente:");
+        System.out.println("Introduzca la clave del cliente(4 caracteres):");
         String clave = sc.nextLine();
         if(clave.length()==4){
             return clave;
         }else{
-        	System.out.println("Introdujo un comando equivocado. Vuelva a intentar.");
+        	System.out.println("Introdujo una contraseña inválida. Esta debe tener 4 números"
+        			+ " únicamente. Vuelva a intentar.");
             return introducirClave();
         }
     }
@@ -67,10 +73,11 @@ public class Sistema {
     	Scanner sc = new Scanner(System.in);
         System.out.println("Introduzca el número de cuenta del cliente:");
         String numeroCuenta = sc.nextLine();
-        if(numeroCuenta.length()==4){
+        if(numeroCuenta.length()==7){
             return numeroCuenta;
         }else{
-        	System.out.println("Introdujo un comando equivocado. Vuelva a intentar.");
+        	System.out.println("Introdujo un número de cuenta inválido. Este debe tener 7 números."
+        			+ " Vuelva a intentar.");
             return introducirNumeroDeCuenta();
         }
     }
@@ -82,7 +89,8 @@ public class Sistema {
         if(esNumero(saldo)){
             return (double)Integer.parseInt(saldo);
         }else{
-        	System.out.println("Introdujo un comando equivocado. Vuelva a intentar.");
+        	System.out.println("Introdujo un caracter equivocado. Recuerde ingresar solo enteros."
+        			+ " Vuelva a intentar.");
             return introducirSaldo();
         }
     }
@@ -115,24 +123,38 @@ public class Sistema {
     public void consultarCliente() {
     	String documento = introducirDocumento();
     	if(listaClientes.containsKey(documento)) {
-           Cliente clienteConsultado = listaClientes.get(documento);
-           System.out.println("Nombre:" + clienteConsultado.getNombre());
-           System.out.println("Documento:" + clienteConsultado.getDocumento());
-           System.out.println("Número de cuenta:" + clienteConsultado.getCuenta().getNumeroDeCuenta());
-           System.out.println("Saldo:" + clienteConsultado.getCuenta().getSaldo());
+    		String clave = introducirClave();
+    		if(listaClientes.get(documento).getClave().equals(clave)){
+    			Cliente clienteConsultado = listaClientes.get(documento);
+    			System.out.println("Nombre:" + clienteConsultado.getNombre());
+    			System.out.println("Documento:" + clienteConsultado.getDocumento());
+    			System.out.println("Número de cuenta:" + clienteConsultado.getCuenta().getNumeroDeCuenta());
+    			System.out.println("Saldo:" + clienteConsultado.getCuenta().getSaldo());
+    		}else {
+    			System.out.println("Contraseña incorrecta.");
+    			Taller2.bienvenida();
+    		}
         } else {
            System.out.println("No hay ningun cliente con ese documento.");  
+           Taller2.bienvenida();
         }
     }
     
     public void modificarCliente() {
         String documento=introducirDocumento();
         if(listaClientes.containsKey(documento)) {
-            Cliente clienteModificado = listaClientes.get(documento);
-            clienteModificado.setNombre(introducirCliente());
-            System.out.println("El nombre se ha cambiado con éxito");
+        	String clave = introducirClave();
+        	if(listaClientes.get(documento).getClave().equals(clave)) {
+	            Cliente clienteModificado = listaClientes.get(documento);
+	            clienteModificado.setNombre(introducirCliente());
+	            System.out.println("El nombre se ha cambiado con éxito");
+        	}else {
+        		System.out.println("Contraseña incorrecta.");
+    			Taller2.bienvenida();
+        	}
         } else {
             System.out.println("No hay ningun cliente con ese documento.");  
+            Taller2.bienvenida();
         }
         
     }
@@ -140,10 +162,17 @@ public class Sistema {
     public void eliminarCliente() {
         String documento=introducirDocumento();
     	if(listaClientes.containsKey(documento)) {
-            listaClientes.remove(documento);
-            System.out.println("La cuenta se ha eliminado con éxito");
+    		String clave = introducirClave();
+            if(listaClientes.get(documento).getClave().equals(clave)) {
+	    		listaClientes.remove(documento);
+	            System.out.println("La cuenta se ha eliminado con éxito");
+            }else {
+            	System.out.println("Contraseña incorrecta.");
+    			Taller2.bienvenida();
+            }
         } else {
             System.out.println("No hay ningun cliente con ese documento.");  
+            Taller2.bienvenida();
         }
     }
     

@@ -5,14 +5,6 @@ import datos.Sistema;
 
 public class Taller2 {
 	private static Sistema sistema = new Sistema();
-	
-    public static Sistema getSistema() {
-		return sistema;
-	}
-
-	public static void setSistema(Sistema sistema) {
-		Taller2.sistema = sistema;
-	}
 
 	public static void main(String[] args) {
         //extraer de flujo y agregar al hashmap "listaClientes" de sistema.
@@ -21,6 +13,14 @@ public class Taller2 {
         
     }
     
+	public static Sistema getSistema() {
+		return sistema;
+	}
+
+	public static void setSistema(Sistema sistema) {
+		Taller2.sistema = sistema;
+	}
+	
     public static void bienvenida() {
     	Scanner sc = new Scanner(System.in);
     	System.out.println("Bienvenido al banco Javaliste!\nPorfavor  escoja una de las"
