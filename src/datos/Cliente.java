@@ -2,6 +2,7 @@ package datos;
 
 import datos.Cuenta;
 import datos.EntidadFinanciera;
+import datos.Ahorro;
 
 public class Cliente implements EntidadFinanciera{
     
@@ -50,18 +51,28 @@ public class Cliente implements EntidadFinanciera{
     }
 
     public void consignar(double valor) {
-        double consignacion=valor+getCuenta().getSaldo();
+        double consignacion=valor+(getCuenta().getSaldo())*(1-Ahorro.getRetencion());
         getCuenta().setSaldo(consignacion);
+        System.out.println("La consignación ha sido exitosa");
     }
 
     public void retirar(double valor) {
-        double retiro=getCuenta().getSaldo()-valor;
+        double retiro=(getCuenta().getSaldo())*(1-Ahorro.getRetencion())-valor;
         getCuenta().setSaldo(retiro);
+        System.out.println("El retiro ha sido exitoso");
     }
 
     public double consultarSaldo() {
         return getCuenta().getSaldo();
     }
+
+	@Override
+	public String toString() {
+		String string="";
+		string=string.concat("-Nombre: "+getNombre()+"\n-Documento: "+getDocumento()+"\n-Número de "
+				+ "cuenta: "+getCuenta().getNumeroDeCuenta()+"\n-Saldo: "+getCuenta().getSaldo()+"$");
+		return string;
+	}
     
     
 

@@ -1,12 +1,21 @@
 package datos;
 import java.util.*;
 import datos.Cuenta;
+import logicaDeNegocio.Taller2;
 
 public class Sistema {
     
-    HashMap<String, Cliente> listaClientes = new HashMap<String, Cliente>();
+    private static HashMap<String, Cliente> listaClientes = new HashMap<String, Cliente>();
     
-    public boolean esNumero(String string) {
+    public static HashMap<String, Cliente> getListaClientes() {
+		return listaClientes;
+	}
+
+	public static void setListaClientes(HashMap<String, Cliente> listaClientes) {
+		Sistema.listaClientes = listaClientes;
+	}
+
+	public boolean esNumero(String string) {
         boolean resultado;
         try {
             Integer.parseInt(string);
@@ -17,7 +26,7 @@ public class Sistema {
         return resultado;
     }
     
-    public void crearCliente(HashMap<String, Cliente> listaClientes) {
+    public void crearCliente() {
     	Cliente cliente=new Cliente(introducirCliente(), introducirDocumento(), introducirClave(), introducirCuenta());
         listaClientes.put(cliente.getDocumento(), cliente);
         System.out.println("La cuenta se ha creado con éxito");
@@ -81,7 +90,7 @@ public class Sistema {
     public Cuenta introducirCuenta(){
     	Scanner sc = new Scanner(System.in);
     	System.out.println("Seleccione el tipo de cuenta que desea crear:\n1. Cuenta de ahorros."
-    			+ "\n2. Certificado a termino fijo (solo hay disponibles cdt a 30 días con interés del 2.3%).");
+    			+ "\n2. Certificado a termino fijo.\n3. Volver.\n");
     	switch (sc.nextLine()) {
 		case "1":
 			String numeroDeCuentaA=introducirNumeroDeCuenta();
@@ -93,6 +102,8 @@ public class Sistema {
 	        double saldoC=introducirSaldo();
 	        Cdt cdt = new Cdt(saldoC, numeroDeCuentaC);
 			return cdt;
+		case "3":
+			Taller2.bienvenida();
 
 		default:
 			System.out.println("Introdujo un comando equivocado. Vuelva a intentar.");
@@ -101,7 +112,7 @@ public class Sistema {
         
     }
    
-    public void consultarCliente(HashMap<String, Cliente> listaClientes) {
+    public void consultarCliente() {
     	String documento = introducirDocumento();
     	if(listaClientes.containsKey(documento)) {
            Cliente clienteConsultado = listaClientes.get(documento);
@@ -111,24 +122,22 @@ public class Sistema {
            System.out.println("Saldo:" + clienteConsultado.getCuenta().getSaldo());
         } else {
            System.out.println("No hay ningun cliente con ese documento.");  
-           
         }
     }
     
-    public void modificarCliente(HashMap<String, Cliente> listaClientes) {
+    public void modificarCliente() {
         String documento=introducirDocumento();
         if(listaClientes.containsKey(documento)) {
             Cliente clienteModificado = listaClientes.get(documento);
             clienteModificado.setNombre(introducirCliente());
-            System.out.println("El nombre se ha cambbiado con éxito");
+            System.out.println("El nombre se ha cambiado con éxito");
         } else {
             System.out.println("No hay ningun cliente con ese documento.");  
-            
         }
         
     }
     
-    public void eliminarCLiente(HashMap<String, Cliente> listaClientes) {
+    public void eliminarCliente() {
         String documento=introducirDocumento();
     	if(listaClientes.containsKey(documento)) {
             listaClientes.remove(documento);
@@ -138,5 +147,38 @@ public class Sistema {
         }
     }
     
+    public void anadirImpuesto(Cliente cliente) {
+    	double saldo = cliente.getCuenta().getSaldo();
+    	if(cliente.getCuenta().getClass()==Ahorro.class) {
+    		cliente.getCuenta().setSaldo(saldo+saldo*Ahorro.getImpuesto());
+    	}else if(cliente.getCuenta().getClass()==Cdt.class) {
+    		cliente.getCuenta().setSaldo(saldo+saldo*Cdt.getInteres());
+    	}
+    }
+    
+    public void anadirImpuestoATodo() {
+    	for (Map.Entry<String, Cliente> entry : listaClientes.entrySet()) {
+    	    anadirImpuesto(entry.getValue());
+    	}
+    }
+    
+    public void imprimirPlatudos() {
+    	ArrayList<Cliente> top=new ArrayList<>();
+    	for (Map.Entry<String, Cliente> entry : listaClientes.entrySet()) {
+    	    top.add(entry.getValue());
+    	}
+    	Collections.sort(top, new Comparator<Cliente>(){
+    		 
+            @Override
+            public int compare(Cliente cliente1, Cliente cliente2) {
+               double valor = cliente1.getCuenta().getSaldo()-cliente2.getCuenta().getSaldo();
+               int casteo = (int) valor;
+               return casteo;
+            }
+        });
+    	for(int i=1;i<=5;i++) {
+    		System.out.println(i+".\n"+top.get(i-1)+"\n");
+    	}
+    }
 
 }
