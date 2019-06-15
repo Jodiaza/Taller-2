@@ -2,14 +2,14 @@ package datos;
 
 public abstract class Cuenta {
 
-    private int saldo;
+    private double saldo;
     private String numeroDeCuenta;
 
-    public int getSaldo() {
+    public double getSaldo() {
         return saldo;
     }
 
-    public void setSaldo(int saldo) {
+    public void setSaldo(double saldo) {
         this.saldo = saldo;
     }
 

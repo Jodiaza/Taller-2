@@ -2,9 +2,9 @@ package datos;
 
 public class Ahorro extends Cuenta {
     
-    public final int cobroRetiro=3000; 
+    public final double cobroRetiro=2.7; 
 
-    public Ahorro(int saldo, String numeroDeCuenta) {
+    public Ahorro(double saldo, String numeroDeCuenta) {
         setSaldo(saldo);
         setNumeroDeCuenta(numeroDeCuenta);
     }

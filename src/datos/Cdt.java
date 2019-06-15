@@ -2,21 +2,19 @@ package datos;
 
 public class Cdt extends Cuenta{
     
-    private static int interes;
+    private static double interes=2.3;
 
-    public static int getInteres() {
+    public static double getInteres() {
         return interes;
     }
 
-    public static void setInteres(int interes) {
+    public static void setInteres(double interes) {
         Cdt.interes = interes;
     }
 
-    public Cdt(int saldo, String numeroDeCuenta, int interes) {
-        super();
+    public Cdt(double saldo, String numeroDeCuenta) {
         setSaldo(saldo);
         setNumeroDeCuenta(numeroDeCuenta);
-        setInteres(interes);
     }
 
     

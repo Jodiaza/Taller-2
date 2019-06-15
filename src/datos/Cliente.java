@@ -1,13 +1,16 @@
 package datos;
 
+import datos.Cuenta;
+import datos.EntidadFinanciera;
+
 public class Cliente implements EntidadFinanciera{
     
     private String nombre;
     private String documento;
-    private int clave;
+    private String clave;
     private Cuenta cuenta; 
     
-    public Cliente(String nombre, String documento, int clave, Cuenta cuenta) {
+    public Cliente(String nombre, String documento, String clave, Cuenta cuenta) {
         this.nombre = nombre;
         this.documento = documento;
         this.clave = clave;
@@ -30,11 +33,11 @@ public class Cliente implements EntidadFinanciera{
         this.documento = documento;
     }
 
-    public int getClave() {
+    public String getClave() {
         return clave;
     }
 
-    public void setClave(int clave) {
+    public void setClave(String clave) {
         this.clave = clave;
     }
 
@@ -46,20 +49,17 @@ public class Cliente implements EntidadFinanciera{
         this.cuenta = cuenta;
     }
 
-    @Override
-    public void consignar(int valor) {
-        int consignacion=valor+getCuenta().getSaldo();
+    public void consignar(double valor) {
+        double consignacion=valor+getCuenta().getSaldo();
         getCuenta().setSaldo(consignacion);
     }
 
-    @Override
-    public void retirar(int valor) {
-        int retiro=getCuenta().getSaldo()-valor;
+    public void retirar(double valor) {
+        double retiro=getCuenta().getSaldo()-valor;
         getCuenta().setSaldo(retiro);
     }
 
-    @Override
-    public int consultarSaldo() {
+    public double consultarSaldo() {
         return getCuenta().getSaldo();
     }
     
