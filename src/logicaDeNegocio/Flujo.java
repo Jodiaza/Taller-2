@@ -6,6 +6,9 @@ import java.io.FileInputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Set;
@@ -50,12 +53,12 @@ try {
 	
 public void eliminarObjeto(Cliente cliente) {
 	try {
-	File file = new File(cliente.getCuenta().getNumeroDeCuenta()+".obj");
-			file.delete();
-		}catch(Exception exception) {
-			System.out.println("ERROR :(");
-		}
+		Path path = Paths.get(cliente.getCuenta().getNumeroDeCuenta()+".obj");
+		Files.delete(path);
+	}catch(Exception exception) {
+		System.out.println();
 	}
+}
 	
 public void crearArray(Sistema sistema) {
 	try {

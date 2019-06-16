@@ -55,13 +55,15 @@ public class Cliente implements EntidadFinanciera, Serializable{
     }
 
     public void consignar(double valor) {
-    double consignacion=valor+(getCuenta().getSaldo())*(1-Ahorro.getRetencion());
+    	double consignacion=valor+(getCuenta().getSaldo())*(1-Ahorro.getRetencion());
+    	consignacion = consignacion-(valor-valor*Ahorro.getCobroRetiro());
         getCuenta().setSaldo(consignacion);
         System.out.println("La consignacion ha sido exitosa");
     }
 
     public void retirar(double valor) {
         double retiro=(getCuenta().getSaldo())*(1-Ahorro.getRetencion())-valor;
+        retiro =retiro-(valor-valor*Ahorro.getCobroRetiro());
         getCuenta().setSaldo(retiro);
         System.out.println("El retiro ha sido exitoso");
     }
@@ -72,7 +74,7 @@ public class Cliente implements EntidadFinanciera, Serializable{
             string=string.concat("-Nombre: "+getNombre()+"\n-Documento: "
                 +getDocumento()+"\n-Numero de "
                 + "cuenta: "+getCuenta().getNumeroDeCuenta()
-                +"\n-Saldo: "+BigDecimal.valueOf(getCuenta().getSaldo())+"$");
+                +"\n-Saldo: "+BigDecimal.valueOf(getCuenta().getSaldo()).toPlainString()+"$");
 		return string;
 	}
     

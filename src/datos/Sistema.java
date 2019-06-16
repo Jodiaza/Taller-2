@@ -50,13 +50,31 @@ public class Sistema implements Serializable{
 	        }
     }
     
+    public boolean contieneDocumento(String documento){
+    	boolean contiene = false;
+    	for (Map.Entry<String, Cliente> entry : listaClientes.entrySet()) {
+    	    if(listaClientes.get(entry.getKey()).getDocumento().equals(documento)) {
+    	    	contiene = true;
+    	    	break;
+    	    }else {
+    	    	contiene = false;
+    	    }
+    	}
+    	return contiene;
+    }
+    
     public String introducirDocumento(){
         Scanner sc = new Scanner(System.in);
         System.out.println("Introduzca el documento del cliente"
                 + "(entre 7 y 10 caracteres):");
         String documento = sc.nextLine();
         if(documento.length()>=7&&documento.length()<=10){
-            return documento;
+            if(!contieneDocumento(documento)) {
+        		return documento;
+            }else {
+            	System.out.println("El documento ya esta registrado. Intente de nuevo.");
+            	return introducirDocumento();
+            }
         }else{
         	System.out.println("Introdujo un comando equivocado. "
                         + "Vuelva a intentar.");
@@ -85,7 +103,12 @@ public class Sistema implements Serializable{
         String numeroCuenta = sc.nextLine();
         if(esNumero(numeroCuenta)) {
         	if(numeroCuenta.length()==7){
-        		return numeroCuenta;
+        		if(!listaClientes.containsKey(numeroCuenta)) {
+        			return numeroCuenta;
+        		}else {
+        			System.out.println("El numero de  cuenta ya esta registrado. Vuelva a intentar");
+        			return introducirNumeroDeCuenta();
+        		}
 	        }else{
 	        	System.out.println("Introdujo un numero de cuenta "
                                 + "invaido. Este debe tener 7 numeros."
@@ -220,8 +243,14 @@ public class Sistema implements Serializable{
     public void anadirImpuesto(Cliente cliente) {
     	double saldo = cliente.getCuenta().getSaldo();
     	if(cliente.getCuenta().getClass()==Ahorro.class) {
-    		cliente.getCuenta().setSaldo(saldo+saldo*Ahorro.getImpuesto());
-    		flujo.crearObjeto(cliente);
+    		if(cliente.getCuenta().getSaldo()>=50000000) {
+    			cliente.getCuenta().setSaldo(saldo-saldo*Ahorro.getRetencion());
+	    		flujo.crearObjeto(cliente);
+    		}else {}
+    		if(cliente.getCuenta().getSaldo()>=1000000) {
+	    		cliente.getCuenta().setSaldo(saldo+saldo*Ahorro.getImpuesto());
+	    		flujo.crearObjeto(cliente);
+    		}else{}
     	}else if(cliente.getCuenta().getClass()==Cdt.class) {
     		cliente.getCuenta().setSaldo(saldo+saldo*Cdt.getInteres());
     		flujo.crearObjeto(cliente);
@@ -250,11 +279,11 @@ public class Sistema implements Serializable{
         });
 	if(top.size()>5) {	
             for(int i=5;i>=1;i--) {
-    		System.out.println(i+".\n"+top.get(i-1)+"\n");
+    		System.out.println(i+".\n"+top.get(i-1).toString()+"\n");
 	    	}
 	}else {
 	    for(int i=top.size();i>=1;i--) {
-                System.out.println((top.size()-i+1)+".\n"+top.get(i-1)+"\n");
+                System.out.println((top.size()-i+1)+".\n"+top.get(i-1).toString()+"\n");
 	    	}
 	    }
     }
