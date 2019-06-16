@@ -27,7 +27,7 @@ public class Taller2 implements Serializable{
                 + "Eliminar una cuenta.\n3. Modificar el nombre del usuario "
                 + "de una cuenta.\n4. Consultar la informacion de una cuenta."
                 + "\n5. Retirar dinero.\n6. Consignar dinero.\n7. Ver el "
-                + "ranquing de malditos burgueses.");
+                + "ranquing clientes.");
     	String entrada= sc.nextLine();
     	switch (entrada) {
 		case "1":
