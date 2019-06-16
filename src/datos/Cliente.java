@@ -14,7 +14,8 @@ public class Cliente implements EntidadFinanciera, Serializable{
     private Cuenta cuenta; 
     private static final long serialVersionUID = 8799656478674716639L;
     
-    public Cliente(String nombre, String documento, String clave, Cuenta cuenta) {
+    public Cliente(String nombre, String documento, String clave, Cuenta cuenta)
+    {
         this.nombre = nombre;
         this.documento = documento;
         this.clave = clave;
@@ -54,9 +55,9 @@ public class Cliente implements EntidadFinanciera, Serializable{
     }
 
     public void consignar(double valor) {
-        double consignacion=valor+(getCuenta().getSaldo())*(1-Ahorro.getRetencion());
+    double consignacion=valor+(getCuenta().getSaldo())*(1-Ahorro.getRetencion());
         getCuenta().setSaldo(consignacion);
-        System.out.println("La consignación ha sido exitosa");
+        System.out.println("La consignaciï¿½n ha sido exitosa");
     }
 
     public void retirar(double valor) {
@@ -67,9 +68,11 @@ public class Cliente implements EntidadFinanciera, Serializable{
 
 	@Override
 	public String toString() {
-		String string="";
-		string=string.concat("-Nombre: "+getNombre()+"\n-Documento: "+getDocumento()+"\n-Número de "
-				+ "cuenta: "+getCuenta().getNumeroDeCuenta()+"\n-Saldo: "+BigDecimal.valueOf(getCuenta().getSaldo())+"$");
+            String string="";
+            string=string.concat("-Nombre: "+getNombre()+"\n-Documento: "
+                +getDocumento()+"\n-Nï¿½mero de "
+                + "cuenta: "+getCuenta().getNumeroDeCuenta()
+                +"\n-Saldo: "+BigDecimal.valueOf(getCuenta().getSaldo())+"$");
 		return string;
 	}
     

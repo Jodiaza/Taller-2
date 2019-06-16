@@ -31,10 +31,11 @@ public class Sistema implements Serializable{
     }
     
     public void crearCliente() {
-    	Cliente cliente=new Cliente(introducirCliente(), introducirDocumento(), introducirClave(), introducirCuenta());
+    	Cliente cliente=new Cliente(introducirCliente(), introducirDocumento(),
+                introducirClave(), introducirCuenta());
         listaClientes.put(cliente.getCuenta().getNumeroDeCuenta(), cliente);
         flujo.crearObjeto(cliente);
-        System.out.println("La cuenta se ha creado con éxito");
+        System.out.println("La cuenta se ha creado con Ã©xito");
     }
     
     public String introducirCliente(){
@@ -44,19 +45,21 @@ public class Sistema implements Serializable{
 	        if(nombre.length()!=0) {
 	        	return nombre;
 	        }else {
-	        	System.out.println("Nombre vacío. Vuelva a intentar.");
+	        	System.out.println("Nombre vacÃ­o. Vuelva a intentar.");
 	        	return introducirCliente();
 	        }
     }
     
     public String introducirDocumento(){
         Scanner sc = new Scanner(System.in);
-        System.out.println("Introduzca el documento del cliente(entre 7 y 10 caracteres):");
+        System.out.println("Introduzca el documento del cliente"
+                + "(entre 7 y 10 caracteres):");
         String documento = sc.nextLine();
         if(documento.length()>=7&&documento.length()<=10){
             return documento;
         }else{
-        	System.out.println("Introdujo un comando equivocado. Vuelva a intentar.");
+        	System.out.println("Introdujo un comando equivocado. "
+                        + "Vuelva a intentar.");
             return introducirDocumento();
         }
     }
@@ -68,26 +71,30 @@ public class Sistema implements Serializable{
         if(clave.length()==4){
             return clave;
         }else{
-        	System.out.println("Introdujo una contraseña inválida. Esta debe tener 4 números"
-        			+ " únicamente. Vuelva a intentar.");
+        	System.out.println("Introdujo una contraseï¿½a invï¿½lida. "
+                        + "Esta debe tener 4 nÃºmeros"
+        			+ " Ãºnicamente. Vuelva a intentar.");
             return introducirClave();
         }
     }
     
     public String introducirNumeroDeCuenta() {
     	Scanner sc = new Scanner(System.in);
-        System.out.println("Introduzca el número de cuenta del cliente(7dígitos):");
+        System.out.println("Introduzca el nÃºmero de cuenta del cliente"
+                + "(7 dÃ­gitos):");
         String numeroCuenta = sc.nextLine();
         if(esNumero(numeroCuenta)) {
         	if(numeroCuenta.length()==7){
         		return numeroCuenta;
 	        }else{
-	        	System.out.println("Introdujo un número de cuenta inválido. Este debe tener 7 números."
+	        	System.out.println("Introdujo un nÃºmero de cuenta "
+                                + "invÃ¡ido. Este debe tener 7 nÃºmeros."
 	        			+ " Vuelva a intentar.");
 	            return introducirNumeroDeCuenta();
 	        }
         }else {
-        	System.out.println("Introdujo un número de cuenta inválido. Este solo puede tener números."
+        	System.out.println("Introdujo un nÃºmero de cuenta invÃ¡lido. "
+                        + "Este solo puede tener nÃºmeros."
         			+ " Vuelva a intentar.");
             return introducirNumeroDeCuenta();
         }
@@ -100,8 +107,9 @@ public class Sistema implements Serializable{
         if(esNumero(saldo)){
             return (double)Integer.parseInt(saldo);
         }else{
-        	System.out.println("Introdujo un caracter equivocado. Recuerde ingresar solo enteros o menos"
-        			+ " de 8 dígitos."
+        	System.out.println("Introdujo un caracter equivocado. "
+                        + "Recuerde ingresar solo enteros o menos"
+        			+ " de 8 dÃ­gitos."
         			+ " Vuelva a intentar.");
             return introducirSaldo();
         }
@@ -109,7 +117,8 @@ public class Sistema implements Serializable{
     
     public Cuenta introducirCuenta(){
     	Scanner sc = new Scanner(System.in);
-    	System.out.println("Seleccione el tipo de cuenta que desea crear:\n1. Cuenta de ahorros."
+    	System.out.println("Seleccione el tipo de cuenta que desea crear:\n1. "
+                + "Cuenta de ahorros."
     			+ "\n2. Certificado a termino fijo.\n3. Volver.\n");
     	switch (sc.nextLine()) {
 		case "1":
@@ -126,7 +135,8 @@ public class Sistema implements Serializable{
 			Taller2.bienvenida();
 
 		default:
-			System.out.println("Introdujo un comando equivocado. Vuelva a intentar.");
+			System.out.println("Introdujo un comando equivocado. "
+                                + "Vuelva a intentar.");
 			return introducirCuenta();
 		}
         
@@ -139,25 +149,28 @@ public class Sistema implements Serializable{
         if(esNumero(saldo)){
             return (double)Integer.parseInt(saldo);
         }else{
-        	System.out.println("Introdujo un caracter equivocado. Recuerde ingresar solo enteros o menos de "
-        			+ "8 dígitos."
+        	System.out.println("Introdujo un caracter equivocado. "
+                        + "Recuerde ingresar solo enteros o menos de "
+        			+ "8 dÃ­gitos."
         			+ " Vuelva a intentar.");
             return introducirSaldo();
         }
     }
    
     public void consultarCliente() {
-    	String numeroCuenta = introducirNumeroDeCuenta();
-    	if(listaClientes.containsKey(numeroCuenta)) {
-    		String clave = introducirClave();
-    		if(listaClientes.get(numeroCuenta).getClave().equals(clave)){
-    			Cliente clienteConsultado = listaClientes.get(numeroCuenta);
-    			System.out.println("Nombre:" + clienteConsultado.getNombre());
-    			System.out.println("Documento:" + clienteConsultado.getDocumento());
-    			System.out.println("Número de cuenta:" + clienteConsultado.getCuenta().getNumeroDeCuenta());
-    			System.out.println("Saldo:" + clienteConsultado.getCuenta().getSaldo());
-    		}else {
-    			System.out.println("Contraseña incorrecta.");
+    String numeroCuenta = introducirNumeroDeCuenta();
+    if(listaClientes.containsKey(numeroCuenta)) {
+    String clave = introducirClave();
+    	if(listaClientes.get(numeroCuenta).getClave().equals(clave)){
+            Cliente clienteConsultado = listaClientes.get(numeroCuenta);
+            System.out.println("Nombre:" + clienteConsultado.getNombre());
+            System.out.println("Documento:" + clienteConsultado.getDocumento());
+            System.out.println("NÃºmero de cuenta:" + 
+                    clienteConsultado.getCuenta().getNumeroDeCuenta());
+            System.out.println("Saldo:" + 
+                    clienteConsultado.getCuenta().getSaldo());
+    	}else {
+            System.out.println("ContraseÃ±a incorrecta.");
     			Taller2.bienvenida();
     		}
         } else {
@@ -174,9 +187,9 @@ public class Sistema implements Serializable{
 	            Cliente clienteModificado = listaClientes.get(numeroCuenta);
 	            clienteModificado.setNombre(introducirCliente());
 	            flujo.crearObjeto(clienteModificado);
-	            System.out.println("El nombre se ha cambiado con éxito");
+	            System.out.println("El nombre se ha cambiado con Ã©xito");
         	}else {
-        		System.out.println("Contraseña incorrecta.");
+        		System.out.println("ContraseÃ±a incorrecta.");
     			Taller2.bienvenida();
         	}
         } else {
@@ -193,9 +206,9 @@ public class Sistema implements Serializable{
             if(listaClientes.get(numeroCuenta).getClave().equals(clave)) {
 	    		listaClientes.remove(numeroCuenta);
 	    		flujo.eliminarObjeto(listaClientes.get(numeroCuenta));
-	            System.out.println("La cuenta se ha eliminado con éxito");
+	            System.out.println("La cuenta se ha eliminado con Ã©xito");
             }else {
-            	System.out.println("Contraseña incorrecta.");
+            	System.out.println("ContraseÃ±a incorrecta.");
     			Taller2.bienvenida();
             }
         } else {
@@ -228,20 +241,20 @@ public class Sistema implements Serializable{
     	}
     	Collections.sort(top, new Comparator<Cliente>(){
     		 
-            @Override
-            public int compare(Cliente cliente1, Cliente cliente2) {
-               double valor = cliente1.getCuenta().getSaldo()-cliente2.getCuenta().getSaldo();
+    @Override
+    public int compare(Cliente cliente1, Cliente cliente2) {
+    double valor = cliente1.getCuenta().getSaldo()-cliente2.getCuenta().getSaldo();
                int casteo = (int) valor;
                return casteo;
             }
         });
-	    if(top.size()>5) {	
-	    	for(int i=5;i>=1;i--) {
-	    		System.out.println(i+".\n"+top.get(i-1)+"\n");
+	if(top.size()>5) {	
+            for(int i=5;i>=1;i--) {
+    		System.out.println(i+".\n"+top.get(i-1)+"\n");
 	    	}
-	    }else {
-	    	for(int i=top.size();i>=1;i--) {
-	    		System.out.println((top.size()-i+1)+".\n"+top.get(i-1)+"\n");
+	}else {
+	    for(int i=top.size();i>=1;i--) {
+                System.out.println((top.size()-i+1)+".\n"+top.get(i-1)+"\n");
 	    	}
 	    }
     }

@@ -17,10 +17,11 @@ public class Flujo implements Serializable{
 	
 	private static final long serialVersionUID = 8799656478674716698L;
 	
-	public void crearObjeto(Cliente cliente) {
-		try {
-			FileOutputStream salida = new FileOutputStream(cliente.getCuenta().getNumeroDeCuenta()+".obj");
-			ObjectOutputStream objeto = new ObjectOutputStream(salida);
+public void crearObjeto(Cliente cliente) {
+try {
+ FileOutputStream salida = new FileOutputStream
+        (cliente.getCuenta().getNumeroDeCuenta()+".obj");
+	ObjectOutputStream objeto = new ObjectOutputStream(salida);
 			objeto.writeObject(cliente);
 			objeto.close();
 		}catch(Exception exception) {
@@ -29,11 +30,12 @@ public class Flujo implements Serializable{
 		
 	}
 	
-	public Cliente leerObjeto(String file) {
+    public Cliente leerObjeto(String file) {
+	try {
+        FileInputStream entrada = new FileInputStream(""
+                + "C://Users/TOSHIBA/git/Taller-2/"+file);
+		ObjectInputStream objeto = new ObjectInputStream(entrada);
 		try {
-			FileInputStream entrada = new FileInputStream("C://Users/TOSHIBA/git/Taller-2/"+file);
-			ObjectInputStream objeto = new ObjectInputStream(entrada);
-			try {
 				Cliente cliente = (Cliente) objeto.readObject();
 				objeto.close();
 				return cliente;
@@ -47,37 +49,37 @@ public class Flujo implements Serializable{
 		}
 	}
 	
-	public void eliminarObjeto(Cliente cliente) {
-		try {
-			File file = new File(cliente.getCuenta().getNumeroDeCuenta()+".obj");
+public void eliminarObjeto(Cliente cliente) {
+	try {
+	File file = new File(cliente.getCuenta().getNumeroDeCuenta()+".obj");
 			file.delete();
 		}catch(Exception exception) {
 			System.out.println("ERROR :(");
 		}
 	}
 	
-	public void crearArray(Sistema sistema) {
-		try {
-			FileOutputStream salida = new FileOutputStream("ListaDeDocumentos.obj");
-			ObjectOutputStream objeto = new ObjectOutputStream(salida);
-			objeto.writeObject(sistema);
-			objeto.close();
+public void crearArray(Sistema sistema) {
+	try {
+	FileOutputStream salida = new FileOutputStream("ListaDeDocumentos.obj");
+		ObjectOutputStream objeto = new ObjectOutputStream(salida);
+		objeto.writeObject(sistema);
+		objeto.close();
 		}catch(Exception exception) {
 			System.out.println("ERROR :(");
 		}
 		
 	}
 	
-	public ArrayList<String> leerArray() {
+public ArrayList<String> leerArray() {
+try {
+	FileInputStream entrada = new FileInputStream("ListaDeDocumentos.obj");
+        	ObjectInputStream objeto = new ObjectInputStream(entrada);
+		ArrayList<String> lista = new ArrayList<String>();
 		try {
-			FileInputStream entrada = new FileInputStream("ListaDeDocumentos.obj");
-			ObjectInputStream objeto = new ObjectInputStream(entrada);
-			ArrayList<String> lista = new ArrayList<String>();
-			try {
-				Sistema listaDocumentos= (Sistema) objeto.readObject();
-				objeto.close();
-				Set<String> set = listaDocumentos.getListaClientes().keySet();
-				if(set.size()!=0) {
+                Sistema listaDocumentos= (Sistema) objeto.readObject();
+                objeto.close();
+                Set<String> set = listaDocumentos.getListaClientes().keySet();
+		if(set.size()!=0) {
 					for(String string:set) {
 						lista.add(string);
 					}
