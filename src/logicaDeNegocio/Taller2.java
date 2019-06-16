@@ -14,7 +14,6 @@ public class Taller2 implements Serializable{
 	private static final long serialVersionUID = 8799656478674716688L;
 
 	public static void main(String[] args) {
-	    //System.out.println(flujo.leerObjeto("1234567.obj").toString());
 		inicializarLista();
 		sistema.anadirImpuestoATodo();
         bienvenida();
@@ -26,7 +25,7 @@ public class Taller2 implements Serializable{
     	System.out.println("Bienvenido al banco Javaliste!\nPorfavor  escoja "
                 + "una de las siguientes opciones:\n1. Crear una cuenta.\n2. "
                 + "Eliminar una cuenta.\n 3. Modificar el nombre del usuario "
-                + "de una  cuenta.\n4. Consultar la información de una cuenta."
+                + "de una  cuenta.\n4. Consultar la informacion de una cuenta."
                 + "\n5. Retirar dinero.\n6. Consignar dinero.\n7. Ver el "
                 + "ranquing de malditos burgueses.");
     	String entrada= sc.nextLine();
@@ -90,7 +89,7 @@ public class Taller2 implements Serializable{
 					Taller2.bienvenida();
                             }
                     }else {
-		System.out.println("Contrase�a incorrecta.");
+		System.out.println("Contrasena incorrecta.");
     			Taller2.bienvenida();
 			}
 		}else {
@@ -115,12 +114,12 @@ public class Taller2 implements Serializable{
 					System.out.println("Su cuenta bancaria "
                                             + "es de tipo cdt. Hasta no tener"
                                             + " mas de 10000000$ en su cuenta "
-                                            + "no podrá retirarlos");
+                                            + "no podra retirarlos");
 						Taller2.bienvenida();
 					}
 				}
 			}else {
-				System.out.println("Contrase�a incorrecta.");
+				System.out.println("Contrasena incorrecta.");
     			Taller2.bienvenida();
 			}
             }else {

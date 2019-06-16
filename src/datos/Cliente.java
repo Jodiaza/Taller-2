@@ -57,7 +57,7 @@ public class Cliente implements EntidadFinanciera, Serializable{
     public void consignar(double valor) {
     double consignacion=valor+(getCuenta().getSaldo())*(1-Ahorro.getRetencion());
         getCuenta().setSaldo(consignacion);
-        System.out.println("La consignaci�n ha sido exitosa");
+        System.out.println("La consignacion ha sido exitosa");
     }
 
     public void retirar(double valor) {
@@ -70,7 +70,7 @@ public class Cliente implements EntidadFinanciera, Serializable{
 	public String toString() {
             String string="";
             string=string.concat("-Nombre: "+getNombre()+"\n-Documento: "
-                +getDocumento()+"\n-N�mero de "
+                +getDocumento()+"\n-Numero de "
                 + "cuenta: "+getCuenta().getNumeroDeCuenta()
                 +"\n-Saldo: "+BigDecimal.valueOf(getCuenta().getSaldo())+"$");
 		return string;

@@ -32,8 +32,7 @@ try {
 	
     public Cliente leerObjeto(String file) {
 	try {
-        FileInputStream entrada = new FileInputStream(""
-                + "C://Users/TOSHIBA/git/Taller-2/"+file);
+        FileInputStream entrada = new FileInputStream(file);
 		ObjectInputStream objeto = new ObjectInputStream(entrada);
 		try {
 				Cliente cliente = (Cliente) objeto.readObject();
