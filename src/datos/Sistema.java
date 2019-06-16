@@ -103,13 +103,8 @@ public class Sistema implements Serializable{
         String numeroCuenta = sc.nextLine();
         if(esNumero(numeroCuenta)) {
         	if(numeroCuenta.length()==7){
-        		if(!listaClientes.containsKey(numeroCuenta)) {
-        			return numeroCuenta;
-        		}else {
-        			System.out.println("El numero de  cuenta ya esta registrado. Vuelva a intentar");
-        			return introducirNumeroDeCuenta();
-        		}
-	        }else{
+        		return numeroCuenta;
+        	}else{
 	        	System.out.println("Introdujo un numero de cuenta "
                                 + "invaido. Este debe tener 7 numeros."
 	        			+ " Vuelva a intentar.");
@@ -120,6 +115,33 @@ public class Sistema implements Serializable{
                         + "Este solo puede tener numeros."
         			+ " Vuelva a intentar.");
             return introducirNumeroDeCuenta();
+        }
+    }
+    
+    public String introducirNumeroDeCuentaCrear() {
+    	Scanner sc = new Scanner(System.in);
+        System.out.println("Introduzca el numero de cuenta del cliente"
+                + "(7 digitos):");
+        String numeroCuenta = sc.nextLine();
+        if(esNumero(numeroCuenta)) {
+        	if(numeroCuenta.length()==7){
+        		if(!listaClientes.containsKey(numeroCuenta)) {
+        			return numeroCuenta;
+        		}else {
+        			System.out.println("El numero de  cuenta ya esta registrado. Vuelva a intentar");
+        			return introducirNumeroDeCuentaCrear();
+        		}
+	        }else{
+	        	System.out.println("Introdujo un numero de cuenta "
+                                + "invaido. Este debe tener 7 numeros."
+	        			+ " Vuelva a intentar.");
+	            return introducirNumeroDeCuentaCrear();
+	        }
+        }else {
+        	System.out.println("Introdujo un numero de cuenta invalido. "
+                        + "Este solo puede tener numeros."
+        			+ " Vuelva a intentar.");
+            return introducirNumeroDeCuentaCrear();
         }
     }
     
@@ -145,7 +167,7 @@ public class Sistema implements Serializable{
     			+ "\n2. Certificado a termino fijo.\n3. Volver.\n");
     	switch (sc.nextLine()) {
 		case "1":
-			String numeroDeCuentaA=introducirNumeroDeCuenta();
+			String numeroDeCuentaA=introducirNumeroDeCuentaCrear();
 	        double saldoA=introducirSaldo();
 	        Ahorro ahorro = new Ahorro(saldoA, numeroDeCuentaA);
 	        return ahorro;
