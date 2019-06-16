@@ -1,20 +1,22 @@
 package datos;
+import java.io.Serializable;
 import java.util.*;
 import datos.Cuenta;
 import logicaDeNegocio.Taller2;
 import logicaDeNegocio.Flujo;
 
-public class Sistema {
+public class Sistema implements Serializable{
     
-    private static HashMap<String, Cliente> listaClientes = new HashMap<String, Cliente>();
+    private HashMap<String, Cliente> listaClientes = new HashMap<String, Cliente>();
     private static Flujo flujo = new Flujo();
+    private static final long serialVersionUID = 879965647867471668L;
     
-    public static HashMap<String, Cliente> getListaClientes() {
+	public HashMap<String, Cliente> getListaClientes() {
 		return listaClientes;
 	}
 
-	public static void setListaClientes(HashMap<String, Cliente> listaClientes) {
-		Sistema.listaClientes = listaClientes;
+	public void setListaClientes(HashMap<String, Cliente> listaClientes) {
+		this.listaClientes = listaClientes;
 	}
 
 	public boolean esNumero(String string) {
@@ -30,7 +32,7 @@ public class Sistema {
     
     public void crearCliente() {
     	Cliente cliente=new Cliente(introducirCliente(), introducirDocumento(), introducirClave(), introducirCuenta());
-        listaClientes.put(cliente.getDocumento(), cliente);
+        listaClientes.put(cliente.getCuenta().getNumeroDeCuenta(), cliente);
         flujo.crearObjeto(cliente);
         System.out.println("La cuenta se ha creado con éxito");
     }
@@ -98,7 +100,8 @@ public class Sistema {
         if(esNumero(saldo)){
             return (double)Integer.parseInt(saldo);
         }else{
-        	System.out.println("Introdujo un caracter equivocado. Recuerde ingresar solo enteros."
+        	System.out.println("Introdujo un caracter equivocado. Recuerde ingresar solo enteros o menos"
+        			+ " de 8 dígitos."
         			+ " Vuelva a intentar.");
             return introducirSaldo();
         }
@@ -128,13 +131,27 @@ public class Sistema {
 		}
         
     }
+    
+    public double introducirDinero() {
+    	Scanner sc = new Scanner(System.in);
+        System.out.println("Introduzca la suma de dinero:");
+        String saldo = sc.nextLine();
+        if(esNumero(saldo)){
+            return (double)Integer.parseInt(saldo);
+        }else{
+        	System.out.println("Introdujo un caracter equivocado. Recuerde ingresar solo enteros o menos de "
+        			+ "8 dígitos."
+        			+ " Vuelva a intentar.");
+            return introducirSaldo();
+        }
+    }
    
     public void consultarCliente() {
-    	String documento = introducirDocumento();
-    	if(listaClientes.containsKey(documento)) {
+    	String numeroCuenta = introducirNumeroDeCuenta();
+    	if(listaClientes.containsKey(numeroCuenta)) {
     		String clave = introducirClave();
-    		if(listaClientes.get(documento).getClave().equals(clave)){
-    			Cliente clienteConsultado = listaClientes.get(documento);
+    		if(listaClientes.get(numeroCuenta).getClave().equals(clave)){
+    			Cliente clienteConsultado = listaClientes.get(numeroCuenta);
     			System.out.println("Nombre:" + clienteConsultado.getNombre());
     			System.out.println("Documento:" + clienteConsultado.getDocumento());
     			System.out.println("Número de cuenta:" + clienteConsultado.getCuenta().getNumeroDeCuenta());
@@ -150,11 +167,11 @@ public class Sistema {
     }
     
     public void modificarCliente() {
-        String documento=introducirDocumento();
-        if(listaClientes.containsKey(documento)) {
+        String numeroCuenta=introducirNumeroDeCuenta();
+        if(listaClientes.containsKey(numeroCuenta)) {
         	String clave = introducirClave();
-        	if(listaClientes.get(documento).getClave().equals(clave)) {
-	            Cliente clienteModificado = listaClientes.get(documento);
+        	if(listaClientes.get(numeroCuenta).getClave().equals(clave)) {
+	            Cliente clienteModificado = listaClientes.get(numeroCuenta);
 	            clienteModificado.setNombre(introducirCliente());
 	            flujo.crearObjeto(clienteModificado);
 	            System.out.println("El nombre se ha cambiado con éxito");
@@ -170,12 +187,12 @@ public class Sistema {
     }
     
     public void eliminarCliente() {
-        String documento=introducirDocumento();
-    	if(listaClientes.containsKey(documento)) {
+        String numeroCuenta=introducirNumeroDeCuenta();
+    	if(listaClientes.containsKey(numeroCuenta)) {
     		String clave = introducirClave();
-            if(listaClientes.get(documento).getClave().equals(clave)) {
-	    		listaClientes.remove(documento);
-	    		flujo.eliminarObjeto(listaClientes.get(documento));
+            if(listaClientes.get(numeroCuenta).getClave().equals(clave)) {
+	    		listaClientes.remove(numeroCuenta);
+	    		flujo.eliminarObjeto(listaClientes.get(numeroCuenta));
 	            System.out.println("La cuenta se ha eliminado con éxito");
             }else {
             	System.out.println("Contraseña incorrecta.");
@@ -219,12 +236,12 @@ public class Sistema {
             }
         });
 	    if(top.size()>5) {	
-	    	for(int i=1;i<=5;i++) {
+	    	for(int i=5;i>=1;i--) {
 	    		System.out.println(i+".\n"+top.get(i-1)+"\n");
 	    	}
 	    }else {
-	    	for(int i=1;i<=top.size();i++) {
-	    		System.out.println(i+".\n"+top.get(i-1)+"\n");
+	    	for(int i=top.size();i>=1;i--) {
+	    		System.out.println((top.size()-i+1)+".\n"+top.get(i-1)+"\n");
 	    	}
 	    }
     }

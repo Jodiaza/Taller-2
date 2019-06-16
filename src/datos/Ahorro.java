@@ -1,9 +1,12 @@
 package datos;
 
-public class Ahorro extends Cuenta {
+import java.io.Serializable;
+
+public class Ahorro extends Cuenta implements Serializable{
     
     private static double retencion=0.0275; 
     private static double impuesto=3;
+    private static final long serialVersionUID = 8799656478674716648L;
     
     public static double getRetencion() {
 		return retencion;

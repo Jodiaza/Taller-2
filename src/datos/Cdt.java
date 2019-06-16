@@ -1,8 +1,11 @@
 package datos;
 
-public class Cdt extends Cuenta{
+import java.io.Serializable;
+
+public class Cdt extends Cuenta implements Serializable{
     
-    private static double interes=4.5;
+    private static double interes=0.045;
+    private static final long serialVersionUID = 8799656478674716668L;
     
 
     public static double getInteres() {

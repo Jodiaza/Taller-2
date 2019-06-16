@@ -6,6 +6,4 @@ public interface EntidadFinanciera{
     
     public void retirar(double valor);
     
-    public double consultarSaldo();
-    
 }

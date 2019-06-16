@@ -4,6 +4,7 @@ import datos.Cuenta;
 import datos.EntidadFinanciera;
 import datos.Ahorro;
 import java.io.Serializable;
+import java.math.BigDecimal;
 
 public class Cliente implements EntidadFinanciera, Serializable{
     
@@ -11,6 +12,7 @@ public class Cliente implements EntidadFinanciera, Serializable{
     private String documento;
     private String clave;
     private Cuenta cuenta; 
+    private static final long serialVersionUID = 8799656478674716639L;
     
     public Cliente(String nombre, String documento, String clave, Cuenta cuenta) {
         this.nombre = nombre;
@@ -63,15 +65,11 @@ public class Cliente implements EntidadFinanciera, Serializable{
         System.out.println("El retiro ha sido exitoso");
     }
 
-    public double consultarSaldo() {
-        return getCuenta().getSaldo();
-    }
-
 	@Override
 	public String toString() {
 		String string="";
 		string=string.concat("-Nombre: "+getNombre()+"\n-Documento: "+getDocumento()+"\n-Número de "
-				+ "cuenta: "+getCuenta().getNumeroDeCuenta()+"\n-Saldo: "+getCuenta().getSaldo()+"$");
+				+ "cuenta: "+getCuenta().getNumeroDeCuenta()+"\n-Saldo: "+BigDecimal.valueOf(getCuenta().getSaldo())+"$");
 		return string;
 	}
     

@@ -1,9 +1,12 @@
 package datos;
 
-public abstract class Cuenta {
+import java.io.Serializable;
+
+public abstract class Cuenta implements Serializable{
 
     private double saldo;
     private String numeroDeCuenta;
+    private static final long serialVersionUID = 8799656478674716658L;
 
     public double getSaldo() {
         return saldo;
