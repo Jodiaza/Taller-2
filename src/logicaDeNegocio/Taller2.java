@@ -48,9 +48,11 @@ public class Taller2 implements Serializable{
 			break;
 		case "5":
 			retirarDinero();
+			flujo.crearArray(sistema);
 			break;
 		case "6":
 			consignarDinero();
+			flujo.crearArray(sistema);
 			break;
 		case "7":
 			sistema.imprimirPlatudos();
