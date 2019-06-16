@@ -3,6 +3,7 @@ package datos;
 import datos.Cuenta;
 import datos.EntidadFinanciera;
 import datos.Ahorro;
+import datos.Sistema;
 import java.io.Serializable;
 import java.math.BigDecimal;
 
@@ -56,16 +57,24 @@ public class Cliente implements EntidadFinanciera, Serializable{
 
     public void consignar(double valor) {
     	double consignacion=valor+(getCuenta().getSaldo())*(1-Ahorro.getRetencion());
-    	consignacion = consignacion-(valor-valor*Ahorro.getCobroRetiro());
         getCuenta().setSaldo(consignacion);
-        System.out.println("La consignacion ha sido exitosa");
+        System.out.println("La consignacion ha sido exitosa.\nSu saldo actual es: "
+        		+ ""+BigDecimal.valueOf(getCuenta().getSaldo()).toPlainString()+"$");
+        
     }
 
     public void retirar(double valor) {
-        double retiro=(getCuenta().getSaldo())*(1-Ahorro.getRetencion())-valor;
-        retiro =retiro-(valor-valor*Ahorro.getCobroRetiro());
-        getCuenta().setSaldo(retiro);
-        System.out.println("El retiro ha sido exitoso");
+    	if(valor<getCuenta().getSaldo()-5000) {
+    		double retiro=(getCuenta().getSaldo())*(1-Ahorro.getRetencion())-valor;
+	        retiro =retiro-(valor-valor*Ahorro.getCobroRetiro());
+	        getCuenta().setSaldo(retiro);
+	        System.out.println("El retiro ha sido exitoso.\nSu  saldo  alcual es: "
+	        		+ ""+BigDecimal.valueOf(getCuenta().getSaldo()).toPlainString()+"$");
+    	}else {
+    		System.out.println("Debe dejar en la cuenta al menos 5000$. Vuelva a intentar");
+    		Sistema sistema = new Sistema();
+    		retirar(sistema.introducirDinero());
+    	}
     }
 
 	@Override

@@ -2,6 +2,7 @@ package logicaDeNegocio;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Scanner;
 
 import datos.Ahorro;
@@ -20,7 +21,23 @@ public class Taller2 implements Serializable{
         
     }
 	
-    public static void bienvenida() {
+    public static Sistema getSistema() {
+		return sistema;
+	}
+
+	public static void setSistema(Sistema sistema) {
+		Taller2.sistema = sistema;
+	}
+
+	public static Flujo getFlujo() {
+		return flujo;
+	}
+
+	public static void setFlujo(Flujo flujo) {
+		Taller2.flujo = flujo;
+	}
+
+	public static void bienvenida() {
     	Scanner sc = new Scanner(System.in);
     	System.out.println("Bienvenido al banco Javaliste!\nPorfavor  escoja "
                 + "una de las siguientes opciones:\n1. Crear una cuenta.\n2. "
@@ -48,11 +65,9 @@ public class Taller2 implements Serializable{
 			break;
 		case "5":
 			retirarDinero();
-			flujo.crearArray(sistema);
 			break;
 		case "6":
 			consignarDinero();
-			flujo.crearArray(sistema);
 			break;
 		case "7":
 			sistema.imprimirPlatudos();
@@ -83,9 +98,10 @@ public class Taller2 implements Serializable{
 		Cliente cliente = sistema.getListaClientes().get(cuenta);
 		String clave = sistema.introducirClave();
 		if(clave.equals(cliente.getClave())){
-                    if(cliente.getCuenta().getClass().equals(Ahorro.class)) {
-			cliente.consignar(sistema.introducirDinero());
-                    }else {
+            if(cliente.getCuenta().getClass().equals(Ahorro.class)) {
+				cliente.consignar(sistema.introducirDinero());
+	    		flujo.crearObjeto(cliente);
+            }else {
 		System.out.println("Su cuenta bancaria es de tipo cdt. Usted no"
 				+ "puede consignar dinero en esta cuenta.");
 					Taller2.bienvenida();
@@ -109,10 +125,13 @@ public class Taller2 implements Serializable{
 		if(clave.equals(cliente.getClave())){
 		if(cliente.getCuenta().getClass().equals(Ahorro.class)) {
         		cliente.retirar(sistema.introducirDinero());
+        		flujo.crearObjeto(cliente);
 		}else {
 			if(cliente.getCuenta().getSaldo()>10000000) {
-         		    cliente.retirar(sistema.introducirDinero());
-				}else{
+         		cliente.retirar(sistema.introducirDinero());
+         		sistema.getListaClientes().put(cliente.getCuenta().getNumeroDeCuenta(),cliente );
+           		flujo.crearArray(sistema);
+			}else{
 					System.out.println("Su cuenta bancaria "
                                             + "es de tipo cdt. Hasta no tener"
                                             + " mas de 10000000$ en su cuenta "
