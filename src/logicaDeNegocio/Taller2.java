@@ -1,25 +1,20 @@
 package logicaDeNegocio;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 import datos.Sistema;
 
 public class Taller2 {
 	private static Sistema sistema = new Sistema();
+	private static Flujo flujo = new Flujo();
 
 	public static void main(String[] args) {
-        //extraer de flujo y agregar al hashmap "listaClientes" de sistema.
-        sistema.anadirImpuestoATodo();
-        bienvenida();
+		System.out.println(flujo.leerObjeto("1234567.obj").toString());
+		//inicializarLista();
+		//sistema.anadirImpuestoATodo();
+        //bienvenida();
         
     }
-    
-	public static Sistema getSistema() {
-		return sistema;
-	}
-
-	public static void setSistema(Sistema sistema) {
-		Taller2.sistema = sistema;
-	}
 	
     public static void bienvenida() {
     	Scanner sc = new Scanner(System.in);
@@ -31,22 +26,36 @@ public class Taller2 {
     	switch (entrada) {
 		case "1":
 			sistema.crearCliente();
+			flujo.crearArray(Sistema.getListaClientes());
 			break;
 		case "2":
 			sistema.eliminarCliente();
+			flujo.crearArray(Sistema.getListaClientes());
 			break;
 		case "3":
 			sistema.modificarCliente();
+			flujo.crearArray(Sistema.getListaClientes());
 			break;
 		case "4":
 			sistema.consultarCliente();
+			flujo.crearArray(Sistema.getListaClientes());
 			break;
 		case "5":
 			sistema.imprimirPlatudos();
+			flujo.crearArray(Sistema.getListaClientes());
 			break;
 		default:
 			System.out.println("Introdujo un comando equivocado. Vuelva a intentar.");
 			bienvenida();
 		}
+    }
+    
+    public static void inicializarLista() {
+    	if(flujo.leerArray().size()==0) {
+    		ArrayList<String> documentos = flujo.leerArray();
+	    	for(String documento:documentos) {
+	    		Sistema.getListaClientes().put(documento, flujo.leerObjeto(documento+".obj"));
+	    	}
+    	}else {}
     }
 }

@@ -2,10 +2,12 @@ package datos;
 import java.util.*;
 import datos.Cuenta;
 import logicaDeNegocio.Taller2;
+import logicaDeNegocio.Flujo;
 
 public class Sistema {
     
     private static HashMap<String, Cliente> listaClientes = new HashMap<String, Cliente>();
+    private static Flujo flujo = new Flujo();
     
     public static HashMap<String, Cliente> getListaClientes() {
 		return listaClientes;
@@ -29,6 +31,7 @@ public class Sistema {
     public void crearCliente() {
     	Cliente cliente=new Cliente(introducirCliente(), introducirDocumento(), introducirClave(), introducirCuenta());
         listaClientes.put(cliente.getDocumento(), cliente);
+        flujo.crearObjeto(cliente);
         System.out.println("La cuenta se ha creado con éxito");
     }
     
@@ -36,17 +39,17 @@ public class Sistema {
         Scanner sc = new Scanner(System.in);
         System.out.println("Introduzca el nombre del cliente:");
         String nombre = sc.nextLine();
-        if(nombre.length()!=0) {
-        	return nombre;
-        }else {
-        	System.out.println("Nombre vacío. Vuelva a intentar.");
-        	return introducirCliente();
-        }
+	        if(nombre.length()!=0) {
+	        	return nombre;
+	        }else {
+	        	System.out.println("Nombre vacío. Vuelva a intentar.");
+	        	return introducirCliente();
+	        }
     }
     
     public String introducirDocumento(){
         Scanner sc = new Scanner(System.in);
-        System.out.println("Introduzca el documento del cliente:");
+        System.out.println("Introduzca el documento del cliente(entre 7 y 10 caracteres):");
         String documento = sc.nextLine();
         if(documento.length()>=7&&documento.length()<=10){
             return documento;
@@ -71,12 +74,18 @@ public class Sistema {
     
     public String introducirNumeroDeCuenta() {
     	Scanner sc = new Scanner(System.in);
-        System.out.println("Introduzca el número de cuenta del cliente:");
+        System.out.println("Introduzca el número de cuenta del cliente(7dígitos):");
         String numeroCuenta = sc.nextLine();
-        if(numeroCuenta.length()==7){
-            return numeroCuenta;
-        }else{
-        	System.out.println("Introdujo un número de cuenta inválido. Este debe tener 7 números."
+        if(esNumero(numeroCuenta)) {
+        	if(numeroCuenta.length()==7){
+        		return numeroCuenta;
+	        }else{
+	        	System.out.println("Introdujo un número de cuenta inválido. Este debe tener 7 números."
+	        			+ " Vuelva a intentar.");
+	            return introducirNumeroDeCuenta();
+	        }
+        }else {
+        	System.out.println("Introdujo un número de cuenta inválido. Este solo puede tener números."
         			+ " Vuelva a intentar.");
             return introducirNumeroDeCuenta();
         }
@@ -147,6 +156,7 @@ public class Sistema {
         	if(listaClientes.get(documento).getClave().equals(clave)) {
 	            Cliente clienteModificado = listaClientes.get(documento);
 	            clienteModificado.setNombre(introducirCliente());
+	            flujo.crearObjeto(clienteModificado);
 	            System.out.println("El nombre se ha cambiado con éxito");
         	}else {
         		System.out.println("Contraseña incorrecta.");
@@ -165,6 +175,7 @@ public class Sistema {
     		String clave = introducirClave();
             if(listaClientes.get(documento).getClave().equals(clave)) {
 	    		listaClientes.remove(documento);
+	    		flujo.eliminarObjeto(listaClientes.get(documento));
 	            System.out.println("La cuenta se ha eliminado con éxito");
             }else {
             	System.out.println("Contraseña incorrecta.");
@@ -180,8 +191,10 @@ public class Sistema {
     	double saldo = cliente.getCuenta().getSaldo();
     	if(cliente.getCuenta().getClass()==Ahorro.class) {
     		cliente.getCuenta().setSaldo(saldo+saldo*Ahorro.getImpuesto());
+    		flujo.crearObjeto(cliente);
     	}else if(cliente.getCuenta().getClass()==Cdt.class) {
     		cliente.getCuenta().setSaldo(saldo+saldo*Cdt.getInteres());
+    		flujo.crearObjeto(cliente);
     	}
     }
     
@@ -205,9 +218,15 @@ public class Sistema {
                return casteo;
             }
         });
-    	for(int i=1;i<=5;i++) {
-    		System.out.println(i+".\n"+top.get(i-1)+"\n");
-    	}
+	    if(top.size()>5) {	
+	    	for(int i=1;i<=5;i++) {
+	    		System.out.println(i+".\n"+top.get(i-1)+"\n");
+	    	}
+	    }else {
+	    	for(int i=1;i<=top.size();i++) {
+	    		System.out.println(i+".\n"+top.get(i-1)+"\n");
+	    	}
+	    }
     }
 
 }

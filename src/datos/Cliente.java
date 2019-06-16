@@ -3,8 +3,9 @@ package datos;
 import datos.Cuenta;
 import datos.EntidadFinanciera;
 import datos.Ahorro;
+import java.io.Serializable;
 
-public class Cliente implements EntidadFinanciera{
+public class Cliente implements EntidadFinanciera, Serializable{
     
     private String nombre;
     private String documento;
